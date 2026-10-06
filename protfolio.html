@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Aayush Shah - Developer and Electronics Project Builder">
+    <title>Aayush Shah | Developer & Electronics Builder</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #050505;
+            color: #ffffff;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        ::selection {
+            background: #ffffff;
+            color: #000000;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        /* Background */
+        .background {
+            position: fixed;
+            inset: 0;
+            z-index: -2;
+            background:
+                radial-gradient(circle at 20% 20%, rgba(0, 255, 170, 0.08), transparent 25%),
+                radial-gradient(circle at 80% 70%, rgba(0, 140, 255, 0.08), transparent 25%),
+                #050505;
+        }
+
+        .grid {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            opacity: 0.15;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+            background-size: 50px 50px;
+            mask-image: linear-gradient(to bottom, black, transparent);
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 18px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(18px);
+            background: rgba(5, 5, 5, 0.65);
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+
+        .logo span {
+            color: #00ffaa;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 28px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #aaa;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #00ffaa;
+        }
+
+        .menu {
+            display: none;
+            font-size: 25px;
+            cursor: pointer;
+        }
+
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            padding: 150px 7% 80px;
+            display: flex;
+            align-items: center;
+        }
+
+        .hero-content {
+            max-width: 950px;
+        }
+
+        .status {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            padding: 8px 14px;
+            border: 1px solid rgba(0,255,170,0.25);
+            background: rgba(0,255,170,0.05);
+            border-radius: 50px;
+            color: #00ffaa;
+            font-size: 13px;
+            margin-bottom: 25px;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #00ffaa;
+            box-shadow: 0 0 15px #00ffaa;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            50% {
+                opacity: 0.3;
+                transform: scale(0.7);
+            }
+        }
+
+        h1 {
+            font-size: clamp(55px, 10vw, 125px);
+            line-height: 0.9;
+            letter-spacing: -7px;
+            margin-bottom: 30px;
+        }
+
+        h1 .outline {
+            color: transparent;
+            -webkit-text-stroke: 1px #ffffff;
+        }
+
+        .hero-description {
+            max-width: 680px;
+            color: #999;
+            font-size: 19px;
+            margin-bottom: 35px;
+        }
+
+        .hero-description strong {
+            color: #fff;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 13px 22px;
+            border-radius: 8px;
+            border: 1px solid #333;
+            font-size: 14px;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .btn-primary {
+            background: #fff;
+            color: #000;
+            border-color: #fff;
+        }
+
+        .btn-primary:hover {
+            background: #00ffaa;
+            border-color: #00ffaa;
+            transform: translateY(-3px);
+        }
+
+        .btn-secondary {
+            color: #fff;
+        }
+
+        .btn-secondary:hover {
+            border-color: #00ffaa;
+            color: #00ffaa;
+            transform: translateY(-3px);
+        }
+
+        /* Sections */
+        section {
+            padding: 110px 7%;
+        }
+
+        .section-label {
+            color: #00ffaa;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 14px;
+        }
+
+        .section-title {
+            font-size: clamp(35px, 5vw, 60px);
+            line-height: 1;
+            letter-spacing: -2px;
+            margin-bottom: 50px;
+        }
+
+        /* Stats */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            border-top: 1px solid #222;
+            border-bottom: 1px solid #222;
+        }
+
+        .stat {
+            padding: 40px 25px;
+            border-right: 1px solid #222;
+        }
+
+        .stat:last-child {
+            border-right: none;
+        }
+
+        .stat-number {
+            font-size: 50px;
+            font-weight: 800;
+        }
+
+        .stat-number span {
+            color: #00ffaa;
+        }
+
+        .stat p {
+            color: #777;
+            font-size: 14px;
+        }
+
+        /* About */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 80px;
+            align-items: start;
+        }
+
+        .about-text {
+            color: #999;
+            font-size: 18px;
+        }
+
+        .about-text p {
+            margin-bottom: 20px;
+        }
+
+        .about-text strong {
+            color: white;
+        }
+
+        /* Skills */
+        .skills {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .skill {
+            padding: 24px;
+            border: 1px solid #222;
+            border-radius: 12px;
+            background: rgba(255,255,255,0.02);
+            transition: 0.3s;
+        }
+
+        .skill:hover {
+            transform: translateY(-5px);
+            border-color: #00ffaa;
+            background: rgba(0,255,170,0.04);
+        }
+
+        .skill-icon {
+            font-size: 27px;
+            margin-bottom: 12px;
+        }
+
+        .skill h3 {
+            margin-bottom: 5px;
+        }
+
+        .skill p {
+            color: #777;
+            font-size: 13px;
+        }
+
+        /* Projects */
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+        }
+
+        .project {
+            min-height: 250px;
+            padding: 28px;
+            border: 1px solid #222;
+            border-radius: 14px;
+            background: linear-gradient(145deg, rgba(255,255,255,0.035), rgba(255,255,255,0.01));
+            position: relative;
+            overflow: hidden;
+            transition: 0.4s;
+        }
+
+        .project::before {
+            content: "";
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            background: #00ffaa;
+            filter: blur(100px);
+            opacity: 0;
+            right: -70px;
+            top: -70px;
+            transition: 0.4s;
+        }
+
+        .project:hover {
+            transform: translateY(-7px);
+            border-color: #444;
+        }
+
+        .project:hover::before {
+            opacity: 0.12;
+        }
+
+        .project-number {
+            color: #555;
+            font-size: 12px;
+            margin-bottom: 45px;
+        }
+
+        .project h3 {
+            font-size: 22px;
+            margin-bottom: 10px;
+        }
+
+        .project p {
+            color: #777;
+            font-size: 14px;
+        }
+
+        .tag {
+            display: inline-block;
+            margin-top: 20px;
+            margin-right: 5px;
+            padding: 5px 9px;
+            border: 1px solid #292929;
+            border-radius: 5px;
+            color: #999;
+            font-size: 11px;
+        }
+
+        /* Electronics */
+        .electronics {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .electronics-card {
+            min-height: 330px;
+            padding: 40px;
+            border: 1px solid #222;
+            border-radius: 15px;
+            background: rgba(255,255,255,0.025);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .circuit {
+            font-size: 80px;
+            opacity: 0.8;
+        }
+
+        .electronics-card h3 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .electronics-card p {
+            color: #888;
+        }
+
+        /* Contact */
+        .contact {
+            text-align: center;
+            max-width: 900px;
+            margin: auto;
+        }
+
+        .contact h2 {
+            font-size: clamp(45px, 7vw, 85px);
+            line-height: 0.95;
+            letter-spacing: -4px;
+            margin-bottom: 25px;
+        }
+
+        .contact p {
+            color: #777;
+            margin-bottom: 30px;
+        }
+
+        .instagram {
+            display: inline-block;
+            padding: 14px 25px;
+            border: 1px solid #333;
+            border-radius: 8px;
+            transition: 0.3s;
+        }
+
+        .instagram:hover {
+            color: #00ffaa;
+            border-color: #00ffaa;
+            transform: translateY(-3px);
+        }
+
+        footer {
+            padding: 30px 7%;
+            border-top: 1px solid #1d1d1d;
+            display: flex;
+            justify-content: space-between;
+            color: #555;
+            font-size: 12px;
+        }
+
+        /* Reveal animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: 0.8s ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Mobile */
+        @media (max-width: 850px) {
+            .nav-links {
+                position: absolute;
+                top: 70px;
+                right: 7%;
+                width: 220px;
+                padding: 20px;
+                display: none;
+                flex-direction: column;
+                background: rgba(10,10,10,0.95);
+                border: 1px solid #222;
+                border-radius: 12px;
+            }
+
+            .nav-links.show {
+                display: flex;
+            }
+
+            .menu {
+                display: block;
+            }
+
+            .stats,
+            .about-grid,
+            .electronics {
+                grid-template-columns: 1fr;
+            }
+
+            .stat {
+                border-right: none;
+                border-bottom: 1px solid #222;
+            }
+
+            .stat:last-child {
+                border-bottom: none;
+            }
+
+            .project-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .skills {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                letter-spacing: -4px;
+            }
+
+            section {
+                padding: 80px 6%;
+            }
+
+            footer {
+                flex-direction: column;
+                gap: 8px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="background"></div>
+    <div class="grid"></div>
+
+    <!-- Navigation -->
+    <nav>
+        <a href="#home" class="logo">AAYUSH<span>.</span></a>
+
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#about">About</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#electronics">Electronics</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+
+        <div class="menu" onclick="toggleMenu()">☰</div>
+    </nav>
+
+    <!-- Hero -->
+    <main id="home">
+        <section class="hero">
+            <div class="hero-content reveal">
+
+                <div class="status">
+                    <span class="status-dot"></span>
+                    Building. Learning. Experimenting.
+                </div>
+
+                <h1>
+                    AAYUSH<br>
+                    <span class="outline">SHAH</span>
+                </h1>
+
+                <p class="hero-description">
+                    Developer, programmer and electronics project builder.
+                    I turn ideas into <strong>working projects</strong> using
+                    code, circuits and creativity.
+                </p>
+
+                <div class="buttons">
+                    <a href="#projects" class="btn btn-primary">View My Work →</a>
+                    <a href="#contact" class="btn btn-secondary">Let's Connect</a>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Stats -->
+        <section>
+            <div class="stats reveal">
+                <div class="stat">
+                    <div class="stat-number">60<span>+</span></div>
+                    <p>Self-built working projects</p>
+                </div>
+
+                <div class="stat">
+                    <div class="stat-number">03</div>
+                    <p>Core technologies</p>
+                </div>
+
+                <div class="stat">
+                    <div class="stat-number">01</div>
+                    <p>Independent builder</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- About -->
+        <section id="about">
+            <div class="section-label reveal">01 / About</div>
+
+            <div class="about-grid">
+                <div class="reveal">
+                    <h2 class="section-title">BUILDING<br>FROM ZERO.</h2>
+                </div>
+
+                <div class="about-text reveal">
+                    <p>
+                        I'm <strong>Aayush Shah</strong>, a developer and
+                        electronics enthusiast who enjoys creating things
+                        from scratch.
+                    </p>
+
+                    <p>
+                        I work with <strong>HTML, CSS and Python</strong>,
+                        while also building and experimenting with
+                        electronics projects.
+                    </p>
+
+                    <p>
+                        I've independently created
+                        <strong>60+ working projects</strong>.
+                        No team. Just ideas, experimentation, debugging
+                        and a lot of learning.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills -->
+        <section id="skills">
+            <div class="section-label reveal">02 / Skills</div>
+            <h2 class="section-title reveal">WHAT I WORK WITH.</h2>
+
+            <div class="skills">
+
+                <div class="skill reveal">
+                    <div class="skill-icon">⌘</div>
+                    <h3>HTML</h3>
+                    <p>Building structured and responsive web pages.</p>
+                </div>
+
+                <div class="skill reveal">
+                    <div class="skill-icon">◈</div>
+                    <h3>CSS</h3>
+                    <p>Creating modern interfaces, layouts and animations.</p>
+                </div>
+
+                <div class="skill reveal">
+                    <div class="skill-icon">⚡</div>
+                    <h3>Python</h3>
+                    <p>Programming, automation, tools and experiments.</p>
+                </div>
+
+                <div class="skill reveal">
+                    <div class="skill-icon">◉</div>
+                    <h3>Electronics</h3>
+                    <p>Designing and experimenting with independent electronics projects.</p>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Projects -->
+        <section id="projects">
+            <div class="section-label reveal">03 / Projects</div>
+            <h2 class="section-title reveal">MY WORK.</h2>
+
+            <div class="project-grid">
+
+                <div class="project reveal">
+                    <div class="project-number">PROJECT / 01</div>
+                    <h3>Python Tools</h3>
+                    <p>
+                        Self-built Python programs, utilities and experiments
+                        designed to solve different problems.
+                    </p>
+                    <span class="tag">PYTHON</span>
+                    <span class="tag">LOGIC</span>
+                </div>
+
+                <div class="project reveal">
+                    <div class="project-number">PROJECT / 02</div>
+                    <h3>Web Projects</h3>
+                    <p>
+                        Websites and interactive interfaces created using
+                        HTML and CSS.
+                    </p>
+                    <span class="tag">HTML</span>
+                    <span class="tag">CSS</span>
+                </div>
+
+                <div class="project reveal">
+                    <div class="project-number">PROJECT / 03</div>
+                    <h3>Automation</h3>
+                    <p>
+                        Small programs and experiments focused on automation
+                        and making repetitive tasks easier.
+                    </p>
+                    <span class="tag">PYTHON</span>
+                    <span class="tag">AUTOMATION</span>
+                </div>
+
+                <div class="project reveal">
+                    <div class="project-number">PROJECT / 04</div>
+                    <h3>Electronics Builds</h3>
+                    <p>
+                        Independent electronics projects built and tested
+                        through hands-on experimentation.
+                    </p>
+                    <span class="tag">ELECTRONICS</span>
+                    <span class="tag">HARDWARE</span>
+                </div>
+
+                <div class="project reveal">
+                    <div class="project-number">PROJECT / 05</div>
+                    <h3>Experiments</h3>
+                    <p>
+                        Creative experiments combining programming,
+                        hardware and problem solving.
+                    </p>
+                    <span class="tag">BUILD</span>
+                    <span class="tag">EXPERIMENT</span>
+                </div>
+
+                <div class="project reveal">
+                    <div class="project-number">PROJECT / 06</div>
+                    <h3>60+ Projects</h3>
+                    <p>
+                        A growing collection of independently built working
+                        projects created through continuous learning.
+                    </p>
+                    <span class="tag">60+</span>
+                    <span class="tag">SOLO BUILDER</span>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Electronics -->
+        <section id="electronics">
+            <div class="section-label reveal">04 / Electronics</div>
+
+            <div class="electronics">
+
+                <div class="electronics-card reveal">
+                    <div class="circuit">⌁</div>
+                    <div>
+                        <h3>Hardware × Code</h3>
+                        <p>
+                            I enjoy combining electronics with programming
+                            to turn ideas into physical, working projects.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="electronics-card reveal">
+                    <div class="circuit">⚙</div>
+                    <div>
+                        <h3>Built Independently</h3>
+                        <p>
+                            More than 60 working projects created by me,
+                            from the initial idea to building, testing
+                            and debugging.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Contact -->
+        <section id="contact">
+            <div class="contact reveal">
+                <div class="section-label">05 / Contact</div>
+
+                <h2>
+                    LET'S BUILD<br>
+                    <span class="outline">SOMETHING.</span>
+                </h2>
+
+                <p>
+                    Interested in my projects or want to connect?
+                    Find me on Instagram.
+                </p>
+
+                <a
+                    class="instagram"
+                    href="https://www.instagram.com/aayush_shah.08/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    Instagram · @aayush_shah.08
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <span>© 2026 Aayush Shah</span>
+        <span>Built from scratch.</span>
+    </footer>
+
+    <script>
+        // Mobile menu
+        function toggleMenu() {
+            document.getElementById("navLinks").classList.toggle("show");
+        }
+
+        // Close mobile menu after clicking a link
+        document.querySelectorAll(".nav-links a").forEach(link => {
+            link.addEventListener("click", () => {
+                document.getElementById("navLinks").classList.remove("show");
+            });
+        });
+
+        // Scroll reveal animation
+        const revealElements = document.querySelectorAll(".reveal");
+
+        const revealObserver = new IntersectionObserver(
+            (entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("active");
+                    }
+                });
+            },
+            {
+                threshold: 0.12
+            }
+        );
+
+        revealElements.forEach(element => {
+            revealObserver.observe(element);
+        });
+
+        // Small mouse glow effect
+        document.addEventListener("mousemove", (event) => {
+            const x = event.clientX;
+            const y = event.clientY;
+
+            document.querySelector(".background").style.background =
+                `
+                radial-gradient(
+                    circle at ${x}px ${y}px,
+                    rgba(0,255,170,0.07),
+                    transparent 25%
+                ),
+                radial-gradient(
+                    circle at 80% 70%,
+                    rgba(0,140,255,0.08),
+                    transparent 25%
+                ),
+                #050505
+                `;
+        });
+    </script>
+
+</body>
+</html>
